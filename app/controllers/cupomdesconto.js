@@ -18,17 +18,33 @@ module.exports = {
     },
 
     adicionar: function(req, res) {
-        let cupomDesconto = new CupomDesconto();
-        cupomDesconto.dataInicial = req.body.dataInicial;
+        let cupomDesconto;
+        try {
+             cupomDesconto = new CupomDesconto(req.body);
+        } catch(e) {
+            // Basd Request: o que o usuário mandou nao foi legal
+            res.status(400).json(e);
+            return;
+        }
+        /*cupomDesconto.dataInicial = req.body.dataInicial;
         cupomDesconto.dataFinal = req.body.dataFinal;
         cupomDesconto.valorInicial = req.body.valorInicial;
         cupomDesconto.valorFinal = req.body.valorFinal;
         cupomDesconto.quantidadeCupons = req.body.quantidadeCupons;
         cupomDesconto.quantidadeUsada = req.body.quantidadeUsada;
-        cupomDesconto.percentualDesconto = req.body.percentualDesconto;
+        cupomDesconto.percentualDesconto = req.body.percentualDesconto;*/
     
+        // Validação manual - forçar a execução
+        const error = cupomDesconto.validateSync();
+        if (error) {
+            console.log ('Mongoose Validation identificou problemas');
+            res.status(400).json(error);
+            return;
+        }
+
         cupomDesconto.save(function (error, novoCupom){
             if (error){
+                console.log('Passou aqui quando tentou gravar');
                 res.statusCode = 500;
                 res.json(error);
             } else {
@@ -40,6 +56,12 @@ module.exports = {
         });
     },
     listarUm: function(req, res){
+        if (!ObjectId.isValid(req.params.cupons_id)){
+            res.status(400).json({
+                message: 'Código inválido'
+            });
+            return;
+        }
         CupomDesconto.findById(ObjectId(req.params.cupons_id),
             function(error, cupomDesconto){
                 if (error){
@@ -125,9 +147,10 @@ module.exports = {
         let id = req.params.cupons_id;
         let cupomDesconto = req.body;
     
+        const options = {runValidators: true};
         CupomDesconto.updateOne(
             {_id: ObjectId(id)},
-            {$set: cupomDesconto}, 
+            {$set: cupomDesconto}, options,
             function(error) {
                 if (error) {
                     res.statusCode = 400; // Bad Request.
