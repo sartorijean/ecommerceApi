@@ -5,21 +5,29 @@ const ObjectId = mongoose.Types.ObjectId;
 module.exports = {
     // 3. Criar POST para Produto (utilizar método route do Express.Router()).
     adicionar: function (req, res) {
-      var produto = new Produto();
+      var produto = new Produto(req.body);
 
        // Aqui vamos setar os campos do produto (via request):
-       produto.nome = req.body.nome;
+       /*produto.nome = req.body.nome;
        produto.preco = req.body.preco;
        produto.descricao = req.body.descricao;
-       produto.quantidadeEstoque = req.body.quantidadeEstoque;
+       produto.quantidadeEstoque = req.body.quantidadeEstoque;*/
+
+       const error = produto.validateSync();
+       if (error) {
+           console.log('Mongoose Validation identificou problemas.');
+           res.status(400).json(error);
+           return;
+       }
 
        // tratando a resposta na function
-       produto.save(function(error) {
-          if (error) {
-             res.send('Erro ao tentar salvar o Produto...: ' + error);
-          }
-          res.json({ message: 'Produto cadastrado com Sucesso!'});
-       });
+       produto.save(function(error, novoProduto) {
+            if (error) {
+                res.status(500).json(error); 
+                return;
+            }
+            res.status(201).json(novoProduto);// Created
+        });
    },
    // 4. Criar GET para Produto (todos). Recuperar Produtos. GET (All).
    listarTudo: function (req, res) {
