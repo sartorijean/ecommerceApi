@@ -2,6 +2,7 @@ const cupomDescontoCon = require('./app/controllers/cupomdesconto');
 const produtoCon = require('./app/controllers/produto'),
       usuarioCon = require('./app/controllers/usuario');
 const validadorToken = require ('./app/utils/authJWT').validadorDeToken;
+const authGoogle = require('./app/controllers/authGoogle');
 
 module.exports = function(ecommerceRouter, passport){
 
@@ -12,7 +13,7 @@ ecommerceRouter.route('/cupons')
     //Método cadastrar cupom: POST
     .post(cupomDescontoCon.adicionar )
     // Método GET Cupons 
-    .get( cupomDescontoCon.listarTudo);
+    .get(authGoogle.validate, cupomDescontoCon.listarTudo);
 
 // Rotas que terminarem com /cupons/:cupons_id (GET, PUT, DELETE e PATCH)
 ecommerceRouter.route('/cupons/:cupons_id')
@@ -52,17 +53,18 @@ ecommerceRouter.route('/login')
  */
 ecommerceRouter.route('/auth/google')
     .get(passport.authenticate('google',
-        {scope: ['https://www.googleapis.com/auth/userinfo.profile']}
+        {scope: ['https://www.googleapis.com/auth/userinfo.profile',
+                 'https://www.googleapis.com/auth/userinfo.email']}
     )
 );
 ecommerceRouter.route('/auth/google/callback')
     .get(passport.authenticate('google',
         {failRedirect: '/'}),
-        function (req, res) {
-            res.json({
-                token: 'Aqui vamos mostrar o token'
-            });
-});
+        authGoogle.retornoAutenticacao
+);
+
+ecommerceRouter.route('/logout')
+    .get(authGoogle.logout);
 
 return ecommerceRouter;
 };
