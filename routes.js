@@ -38,6 +38,9 @@ ecommerceRouter.route('/produtos/:produtos_id')
     .delete(produtoCon.excluir)
     .patch(produtoCon.alterarParcial);
 
+ecommerceRouter.route('/produtos/saida/:saida/:campos?')
+    .get(produtoCon.listarParametrizado);
+
 /**
  * Usuario
  */

@@ -2,6 +2,23 @@ const mongoose = require('mongoose');
 const Produto = require('../models/produto');
 const ObjectId = mongoose.Types.ObjectId;
 
+const conversor = require('json-2-csv');
+
+const getOptions = function(campos){
+    return new Promise(function(resolve, reject) {
+        let options = {
+            keys: ['nome', 'preco', 'descricao']
+        };
+
+        if (campos) {
+            let params = campos.split(',');
+            options.keys = params;
+        }
+
+        resolve(options);
+    })
+}
+
 module.exports = {
     // 3. Criar POST para Produto (utilizar método route do Express.Router()).
     adicionar: function (req, res) {
@@ -117,5 +134,33 @@ module.exports = {
                 }
             }
         );
+    },
+    listarParametrizado: function (req, res) {
+        Produto.find(function(erro, produtos) {
+            if (erro){
+                res.status(500).json({
+                    message: 'Erro ao recuperar Produtos'+erro
+                });
+            }
+
+            if (req.params.saida && req.params.saida === 'csv'){
+                // fazer chamada da Promise
+                getOptions(req.params.campos)
+                    .then(function(options){
+                        return conversor.json2csvAsync(produtos, options);
+                    })
+                    .then(function(csv){
+                        res.set('Content-Type', 'text/csv');
+                        res.setHeader('Content-disposition',
+                        'attachment;filename=produtos.csv');
+                        res.send(csv);
+                    })
+                    .catch(erro => {
+                        res.status(500).json(erro);
+                    })
+            } else {
+                res.status(200).json (produtos);
+            }
+        })
     }
 }

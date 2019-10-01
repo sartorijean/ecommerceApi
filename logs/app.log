@@ -2,3 +2,57 @@
 {"message":"Página inicial da aplicação","level":"info"}
 {"message":"Página inicial da aplicação","level":"info"}
 {"message":"GET / 200 30 - 3.214 ms\n","level":"info"}
+{"message":"Página inicial da aplicação","level":"info"}
+{"message":"GET / 304 - - 3.625 ms\n","level":"info"}
+{"message":"GET /auth/google/ 404 151 - 1.864 ms\n","level":"info"}
+{"message":"GET /api-docs 301 183 - 1.647 ms\n","level":"info"}
+{"message":"GET /api-docs/ 200 3113 - 0.943 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui-init.js 200 7197 - 0.671 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui.css 200 141820 - 14.972 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui-standalone-preset.js 200 295198 - 7.212 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui-bundle.js 200 957138 - 6.372 ms\n","level":"info"}
+{"message":"GET /api-docs/favicon-32x32.png 200 628 - 19.631 ms\n","level":"info"}
+{"message":"GET /api-docs/favicon-16x16.png 200 665 - 5.285 ms\n","level":"info"}
+{"message":"POST /ecommerce/cupons 400 1129 - 14.330 ms\n","level":"info"}
+{"message":"POST /ecommerce/cupons 201 397 - 208.139 ms\n","level":"info"}
+{"message":"GET /ecommerce/cupons 200 2059 - 196.840 ms\n","level":"info"}
+{"message":"GET /ecommerce/logout 302 0 - 11.079 ms\n","level":"info"}
+{"message":"Página inicial da aplicação","level":"info"}
+{"message":"GET / 200 30 - 0.392 ms\n","level":"info"}
+{"message":"GET /ecommerce/logout 302 0 - 0.275 ms\n","level":"info"}
+{"message":"Página inicial da aplicação","level":"info"}
+{"message":"GET / 200 30 - 0.174 ms\n","level":"info"}
+{"message":"GET /ecommerce/cupons 302 0 - 0.336 ms\n","level":"info"}
+{"message":"GET /ecommerce/auth/google 302 0 - 1.428 ms\n","level":"info"}
+{"message":"GET /ecommerce/usuarios 401 29 - 0.344 ms\n","level":"info"}
+{"message":"GET /ecommerce/usuarios 401 29 - 0.468 ms\n","level":"info"}
+{"message":"GET /api-docs/ 200 3113 - 5.838 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui-init.js 200 7865 - 1.572 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui.css 304 - - 2.709 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui-standalone-preset.js 304 - - 1.445 ms\n","level":"info"}
+{"message":"GET /api-docs/swagger-ui-bundle.js 304 - - 3.447 ms\n","level":"info"}
+{"message":"GET /api-docs/favicon-16x16.png 304 - - 0.764 ms\n","level":"info"}
+{"message":"POST /ecommerce/login 200 331 - 298.676 ms\n","level":"info"}
+{"message":"GET /ecommerce/usuarios 200 385 - 191.631 ms\n","level":"info"}
+{"message":"GET /ecommerce/auth/google?response_type=token&client_id=390820001316-m58nlhbtd5kadjj018akr930l0ok5j6h.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2-redirect.html&scope=read%3Acupons&state=U2F0IFNlcCAyOCAyMDE5IDE0OjEyOjI4IEdNVC0wMzAwICgtMDMp 302 0 - 4.907 ms\n","level":"info"}
+{"message":"GET /ecommerce/auth/google/callback?code=4/rgHUD6SHWN0XONAHbLBFPMFOUtPEf8oDv7GmUBfBrn1lPq8vfDi1ilcvt6VgXbCaMYLxdTNdDWL1fbHQB6NWPtU&scope=email+profile+https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&authuser=0&session_state=919242f26d293c6b1875579ad3be9ed79fa42db1..6979&prompt=none 200 213 - 543.486 ms\n","level":"info"}
+{"message":"GET /favicon.ico 404 150 - 2.620 ms\n","level":"info"}
+{"message":"GET /ecommerce/cupons 304 - - 189.523 ms\n","level":"info"}
+{"message":"Página inicial da aplicação","level":"info"}
+{"message":"GET / 200 30 - 9.998 ms\n","level":"info"}
+{"message":"GET /produtosdisponiveis 404 158 - 1.893 ms\n","level":"info"}
+{"message":"GET /profile 404 146 - 0.818 ms\n","level":"info"}
+{"message":"Página inicial da aplicação","level":"info"}
+{"message":"GET / 304 - - 1.214 ms\n","level":"info"}
+{"message":"GET /ecommerce/cupons 200 2059 - 208.787 ms\n","level":"info"}
+{"message":"GET /ecommerce/cupons 304 - - 192.134 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos 304 - - 183.855 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/json 200 270 - 183.327 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/json 304 - - 183.641 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/csv 200 96 - 185.222 ms\n","level":"info"}
+{"message":"GET /favicon.ico 404 150 - 0.437 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/csv 200 96 - 201.327 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/csv/quantidadeEstoque,id_ 200 96 - 184.684 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/csv/quantidadeEstoque 200 96 - 180.738 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/csv 200 96 - 201.630 ms\n","level":"info"}
+{"message":"GET /ecommerce/produtos/saida/csv/quantidadeEstoque,preco 200 36 - 183.230 ms\n","level":"info"}

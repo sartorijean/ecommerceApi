@@ -11,6 +11,8 @@ const cookieParser  = require('cookie-parser'),
       cookieSession = require ('cookie-session');
 const helmet = require('helmet');
 const morgan= require('morgan');
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./app/utils/swagger.json');
 
 const winston = require('./app/utils/winston');
 
@@ -60,6 +62,7 @@ app.get('/usuarios', function (req, res) {
     });
 });
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use('/ecommerce', routes(ecommerceRouter, passport));
 

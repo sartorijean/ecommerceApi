@@ -1,0 +1,220 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Estes são os serviços disponíveis da nossa API de e-commerce. <br>Mais informações podem ser encontradas em [http://upf.br/](http://upf.br).",
+    "version" : "1.0.0",
+    "title" : "eCommerce API",
+    "termsOfService" : "http://localhost:3000/ecommerce/termos.html",
+    "contact" : {
+      "email" : "apiecommerce@upf.br"
+    }
+  },
+  "host" : "localhost:3000",
+  "basePath" : "/ecommerce",
+  "tags" : [ {
+    "name" : "cupomdesconto",
+    "description" : "Tudo sobre cupons de desconto",
+    "externalDocs" : {
+      "description" : "Mais sobre",
+      "url" : "http://localhost:3000/ecommerce/sobre"
+    }
+  }, {
+    "name" : "usuario",
+    "description" : "Operações de/sobre usuários"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/cupons" : {
+      "get" : {
+        "tags" : [ "cupomdesconto" ],
+        "summary" : "Retorna todos os cupons de desconto.",
+        "operationId" : "listarTudo",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Sucesso"
+          },
+          "502" : {
+            "description" : "Erro ao recuperar dados"
+          }
+        },
+        "security" : [ {
+          "ecommerce_auth" : [ "read:cupons" ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "cupomdesconto" ],
+        "summary" : "Adicione um novo cupom de desconto",
+        "description" : "",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "cupomDesconto",
+          "description" : "Objeto Cupom de Desconto que será adicionado.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CupomDesconto"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Cupom de desconto criado"
+          },
+          "400" : {
+            "description" : "Valores inválidos de entrada"
+          },
+          "500" : {
+            "description" : "Não foi possível executar a requisição"
+          }
+        }
+      }
+    },
+    "/usuarios" : {
+      "get" : {
+        "tags" : [ "usuario" ],
+        "summary" : "Retorna todos os usuários",
+        "description" : "",
+        "operationId" : "listarTodos",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Sucesso"
+          },
+          "401" : {
+            "description" : "Usuário não autorizado"
+          },
+          "502" : {
+            "description" : "Erro ao recuperar dados"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/login" : {
+      "post" : {
+        "tags" : [ "usuario" ],
+        "summary" : "Login na API",
+        "operationId" : "login",
+        "consumes" : [ "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "nome",
+          "in" : "formData",
+          "description" : "Nome do usuário para login",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "senha",
+          "in" : "formData",
+          "description" : "Senha do usuário para login (texto simples)",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Sucesso"
+          },
+          "401" : {
+            "description" : "Usuário não autorizado"
+          },
+          "500" : {
+            "description" : "Erro ao executar requisição"
+          }
+        }
+      }
+    },
+    "/logout" : {
+      "get" : {
+        "tags" : [ "usuario" ],
+        "summary" : "Desconecta a sessão atual do usuário",
+        "description" : "",
+        "operationId" : "logout",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "default" : {
+            "description" : "Sucesso"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "ecommerce_auth" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "http://localhost:3000/ecommerce/auth/google",
+      "flow" : "implicit",
+      "scopes" : {
+        "write:cupons" : "modificar cupons",
+        "read:cupons" : "visualizar cupons"
+      }
+    },
+    "api_key" : {
+      "type" : "apiKey",
+      "name" : "authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "CupomDesconto" : {
+      "type" : "object",
+      "required" : [ "percentualDesconto" ],
+      "properties" : {
+        "dataInicial" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dataFinal" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "valorInicial" : {
+          "type" : "number",
+          "example" : 99.9
+        },
+        "valorFinal" : {
+          "type" : "number"
+        },
+        "tipo" : {
+          "type" : "string",
+          "description" : "Tipo do Cupom de Desconto",
+          "enum" : [ "DESCONTO", "FRETEGRATIS", "PROMOCIONAL" ]
+        },
+        "quantidadeCupons" : {
+          "type" : "integer",
+          "example" : 500
+        },
+        "quantidadeUsada" : {
+          "type" : "integer"
+        },
+        "percentualDesconto" : {
+          "type" : "number",
+          "example" : 10.0
+        }
+      }
+    },
+    "Usuario" : {
+      "type" : "object",
+      "required" : [ "nome", "senha" ],
+      "properties" : {
+        "nome" : {
+          "type" : "string",
+          "example" : "name"
+        },
+        "senha" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string",
+          "example" : "name@email.com"
+        }
+      }
+    }
+  }
+}
